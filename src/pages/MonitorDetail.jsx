@@ -43,15 +43,10 @@ export default function MonitorDetail() {
 
   useEffect(() => {
     socket.connect();
-    console.log('[MonitorDetail] registering listener for:', `monitor:${id}:check`, 'id type:', typeof id, 'id value:', JSON.stringify(id));
     const checkHandler = (data) => {
-      console.log('[MonitorDetail] checkHandler fired, current id param:', id, 'data:', data);
-      setRecent((prev) => {
-        const updated = [{ id: crypto.randomUUID(), ...data }, ...prev].slice(0, 20);
-        console.log('[MonitorDetail] setRecent new length:', updated.length);
-        return updated;
-      });
+      setRecent((prev) => [{ id: crypto.randomUUID(), ...data }, ...prev].slice(0, 20));
       setSeries((prev) => [...prev, { time: new Date(data.checkedAt).toLocaleTimeString(), ms: data.responseTimeMs }]);
+      api.get(`/monitors/${id}/stats/uptime?hours=24`).then((res) => setUptime(res.data));
     };
     const incidentHandler = () => loadMonitor();
     socket.on(`monitor:${id}:check`, checkHandler);
