@@ -44,6 +44,7 @@ export default function MonitorDetail() {
   useEffect(() => {
     socket.connect();
     const checkHandler = (data) => {
+      console.log('WS check received:', data);
       setRecent((prev) => [{ id: crypto.randomUUID(), ...data }, ...prev].slice(0, 20));
       setSeries((prev) => [...prev, { time: new Date(data.checkedAt).toLocaleTimeString(), ms: data.responseTimeMs }]);
     };
