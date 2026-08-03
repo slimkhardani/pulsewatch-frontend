@@ -16,19 +16,32 @@ export default function VerifyEmail() {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-neutral-950">
-      <div className="bg-neutral-900 border border-neutral-800 p-8 rounded-xl w-96 text-center">
-        {status === 'verifying' && <p className="text-neutral-400">Verifying your email...</p>}
-        {status === 'success' && (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
+      <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 p-8 rounded-2xl w-full max-w-sm shadow-2xl text-center">
+        {status === 'verifying' && (
           <>
-            <p className="text-green-400 mb-4">✓ Email verified successfully!</p>
-            <Link to="/login" className="text-blue-400 hover:text-blue-300">Continue to login</Link>
+            <div className="mb-4 text-4xl">⏳</div>
+            <p className="text-slate-300 font-medium">Verifying your email...</p>
           </>
         )}
+
+        {status === 'success' && (
+          <>
+            <div className="mb-4 text-5xl text-green-400">✓</div>
+            <p className="text-green-300 font-semibold mb-6">Email verified successfully!</p>
+            <Link to="/login" className="inline-block bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-lg px-6 py-2.5 font-semibold shadow-lg hover:shadow-xl transition">
+              Continue to login
+            </Link>
+          </>
+        )}
+
         {status === 'error' && (
           <>
-            <p className="text-red-400 mb-4">Invalid or expired verification link.</p>
-            <Link to="/login" className="text-blue-400 hover:text-blue-300">Back to login</Link>
+            <div className="mb-4 text-5xl text-red-400">✕</div>
+            <p className="text-red-300 font-semibold mb-6">Invalid or expired verification link</p>
+            <Link to="/login" className="inline-block bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-lg px-6 py-2.5 font-semibold shadow-lg hover:shadow-xl transition">
+              Back to login
+            </Link>
           </>
         )}
       </div>

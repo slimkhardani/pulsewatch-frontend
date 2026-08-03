@@ -27,37 +27,55 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-neutral-950">
-      <div className="bg-neutral-900 border border-neutral-800 p-8 rounded-xl w-96">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
+      <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 p-8 rounded-2xl w-full max-w-sm shadow-2xl">
         {!registered ? (
           <form onSubmit={handleSubmit}>
-            <h1 className="text-2xl font-semibold mb-1 text-white">Create your account</h1>
-            <p className="text-neutral-500 text-sm mb-6">Start monitoring in seconds</p>
-            {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
-            <input
-              type="email" placeholder="Email" value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-neutral-800 border border-neutral-700 text-white placeholder-neutral-500 rounded-lg p-2.5 mb-3 outline-none focus:border-blue-500 transition"
-            />
-            <input
-              type="password" placeholder="Password (min 8 chars)" value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-neutral-800 border border-neutral-700 text-white placeholder-neutral-500 rounded-lg p-2.5 mb-5 outline-none focus:border-blue-500 transition"
-            />
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-white">Create account</h1>
+              <p className="text-slate-400 text-sm mt-2">Start monitoring in seconds</p>
+            </div>
+
+            {error && (
+              <div className="bg-red-500/15 border border-red-500/40 text-red-300 p-3 rounded-lg mb-4 text-sm font-medium">
+                {error}
+              </div>
+            )}
+
+            <div className="space-y-3 mb-6">
+              <input
+                type="email" placeholder="Email address" value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full bg-slate-700/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 outline-none focus:border-blue-500 focus:bg-slate-700/80 transition font-medium"
+              />
+              <input
+                type="password" placeholder="Password (min 8 chars)" value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full bg-slate-700/50 border border-slate-600/50 text-white placeholder-slate-400 rounded-lg px-4 py-2.5 outline-none focus:border-blue-500 focus:bg-slate-700/80 transition font-medium"
+              />
+            </div>
+
             <button
               disabled={submitting}
-              className="w-full bg-blue-600 hover:bg-blue-500 transition text-white rounded-lg p-2.5 font-medium disabled:opacity-50"
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-lg py-2.5 font-semibold shadow-lg hover:shadow-xl transition disabled:opacity-60"
             >
               {submitting ? 'Creating account...' : 'Register'}
             </button>
-            <p className="mt-5 text-sm text-neutral-500">
-              Already have an account? <Link to="/login" className="text-blue-400 hover:text-blue-300">Log in</Link>
+
+            <p className="mt-6 text-sm text-slate-400">
+              Already have an account?{' '}
+              <Link to="/login" className="text-blue-400 hover:text-blue-300 font-semibold">
+                Sign in
+              </Link>
             </p>
           </form>
         ) : (
-          <div className="text-center">
-            <p className="text-green-400 mb-2">✓ {message}</p>
-            <Link to="/login" className="text-blue-400 hover:text-blue-300 text-sm">Go to login</Link>
+          <div className="text-center py-8">
+            <div className="mb-4 text-4xl">✓</div>
+            <p className="text-green-300 font-semibold mb-2">{message}</p>
+            <Link to="/login" className="text-blue-400 hover:text-blue-300 text-sm font-medium">
+              Continue to login
+            </Link>
           </div>
         )}
       </div>
